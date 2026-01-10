@@ -265,7 +265,8 @@
         async function copyText(elementId) {
             const textarea = document.getElementById(elementId);
             const text = textarea.value;
-            if (!text) return showToast('无内容可复制');
+            const errorMessages = ['加密异常，请重试', '解密异常，请检查替换内容与加密时一致'];
+            if (!text || errorMessages.includes(text)) return showToast('无有效内容可复制');
             try {
                 await navigator.clipboard.writeText(text);
                 showToast('复制成功');
